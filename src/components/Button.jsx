@@ -1,13 +1,17 @@
 import React from 'react'
 
 export default function Button(props) {
-  const {theme, buttonName, buttonType, handelEvent, value} = props
-  const classNames = `${theme} ${buttonName} ${buttonType} button`
+  const {classNames, value, handleEvent} = props
   return (
-    <button 
-    className={classNames}
-    onClick={handelEvent}
-    value={value}
+    <button
+    className={classNames + " button"}
+    onClick={handleEvent}
     >{value}</button>
   )
+
+
+
+
+
+
 }

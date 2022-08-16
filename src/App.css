@@ -76,3 +76,13 @@ Buttons
   font-size: 32px;
   padding: 5px;
 }
+
+
+
+.display {
+  width: 10em;
+  background-color: aliceblue;
+  font-size: 32px;
+  text-align: center;
+  padding: .3em;
+}

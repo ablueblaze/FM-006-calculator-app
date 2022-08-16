@@ -15,9 +15,10 @@ import {
 } from './scripts/events';
 
 function App() {
-  // const [theme, setTheme] = useState('theme1');
-  const [calc, setCalc] = useState(false);
-  const [DisplayValue, setDisplayValue] = useState('0');
+  const numberBtns = numberBtnCreator();
+  const [theme, setTheme] = useState('theme1');
+  const [displayValue, setDisplayValue] = useState('0');
+  console.log(displayValue)
   const [activeValues, setActiveValues] = useState({
     num1: [],
     num2: [],
@@ -34,24 +35,6 @@ function App() {
       storeInNum2: false,
     });
   };
-
-
-  // useEffect(() => {
-    
-  // }, [calc]);
-
-  // const setValuesForContinuedCalcs = (num, action) => {
-  //   setActiveValues({
-  //     num1: [`${num}`],
-  //     num2: [],
-  //     arithmeticSymbol: action ? action : null,
-  //     storeInNum2: true,
-  //   });
-  //   console.log(DisplayValue);
-  //   console.log(activeValues);
-  // };
-
-  const numberBtns = numberBtnCreator();
 
   const actionSwitch = (val) => {
     switch (val) {
@@ -87,7 +70,18 @@ function App() {
     }
   }
 
-  const handleAction = (type, val) => {
+  useEffect(() => {
+    if (activeValues.num1 === []) {
+      setDisplayValue('0')
+      return
+    }
+    if (activeValues.storeInNum2 === false) {
+      setDisplayValue(activeValues.num1.join(''))
+    }
+
+  }, [activeValues])
+
+  const handleBtnEvents = (type, val) => {
     console.log(`Handle action data: ${type} ${val}`)
     switch (type) {
       case 'action':
@@ -101,6 +95,12 @@ function App() {
         console.log('decimal function')
         break;
       case 'number':
+        setActiveValues(prevVal => {
+          return {
+            ...prevVal,
+            num1: [...prevVal.num1, val]
+          }
+        })
         console.log(type, val)
         break;
       default:
@@ -108,35 +108,23 @@ function App() {
     }
   }
 
+  const allButtons = [...numberBtns, ...buttonValues]
+
   return (
     <div className='App'>
+      <Display theme={theme} displayValue={displayValue}/>
       <div className='button-field'>
-        {numberBtns.map((button) => {
+        {allButtons.map((button) => {
           return (
-            <button
-              key={nanoid()}
-              className={`button ${button.classNames}`}
-              onClick={(e) => {
-                handleAction(button.type, button.value);
-                console.log(activeValues);
-              }}
-              value={button.value}>
-              {button.value}
-            </button>
-          );
-        })}
-        {buttonValues.map((button) => {
-          return (
-            <button
-              key={nanoid()}
-              className={`button ${button.classNames}`}
-              onClick={(e) => {
-                handleAction(button.type, button.value);
-              }}
-              value={button.value}>
-              {button.value}
-            </button>
-          );
+            <Button
+            classNames={button.classNames}
+            value={button.value}
+            //todo: Handle events
+            handleEvent={() => {
+              handleBtnEvents(button.type, button.value)
+            }}
+            />
+          )
         })}
       </div>
     </div>
