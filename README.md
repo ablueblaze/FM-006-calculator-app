@@ -56,6 +56,9 @@ Users should be able to:
   - What elements of the project do I forsee having trouble with?
   - What elements do I want to focus on as a way to continue my skill advancement?
   
+- Kiss:
+  - two numbers max
+  - 
 
 -Basic plan
   - Plan outline:

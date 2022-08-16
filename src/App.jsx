@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import './App.css';
 import Button from './components/Button';
@@ -16,100 +16,97 @@ import {
 
 function App() {
   // const [theme, setTheme] = useState('theme1');
-  // const [DisplayValue, setDisplayValue] = useState([]);
+  const [calc, setCalc] = useState(false);
+  const [DisplayValue, setDisplayValue] = useState('0');
   const [activeValues, setActiveValues] = useState({
-    firstNum: '390',
-    secondNum: '',
-    arithmeticSymbol: '/',
+    num1: [],
+    num2: [],
+    arithmeticSymbol: null,
+    storeInNum2: false,
   });
 
-  const numberBtns = numberBtnCreator();
-
-  const numberAction = (number) => {
-    setActiveValues((prevVals) => {
-      if (prevVals.arithmeticSymbol === false) {
-        return {
-          ...prevVals,
-          firstNum: prevVals.firstNum + number,
-        };
-      }
-      return {
-        ...prevVals,
-        secondNum: prevVals.secondNum + number,
-      };
+  const resetAllValues = () => {
+    setDisplayValue('0')
+    setActiveValues({
+      num1: [],
+      num2: [],
+      arithmeticSymbol: null,
+      storeInNum2: false,
     });
   };
 
-  const actionAction = (action) => {
-    switch (action) {
+
+  // useEffect(() => {
+    
+  // }, [calc]);
+
+  // const setValuesForContinuedCalcs = (num, action) => {
+  //   setActiveValues({
+  //     num1: [`${num}`],
+  //     num2: [],
+  //     arithmeticSymbol: action ? action : null,
+  //     storeInNum2: true,
+  //   });
+  //   console.log(DisplayValue);
+  //   console.log(activeValues);
+  // };
+
+  const numberBtns = numberBtnCreator();
+
+  const actionSwitch = (val) => {
+    switch (val) {
       case 'del':
-        setActiveValues((prevVals) => {
-          if (prevVals.arithmeticSymbol === false) {
-            const newValue = prevVals.firstNum.split('');
-            newValue.splice(-1, 1);
-            return {
-              ...prevVals,
-              firstNum: newValue.join(''),
-            };
-          }
-          const newValue = prevVals.secondNum.split('');
-          newValue.splice(-1, 1);
-          return {
-            ...prevVals,
-            firstNum: newValue.join(''),
-          };
-        });
+        // todo: delete functionality
         console.log(activeValues)
-        console.log(action);
-        break;
-      case '+':
-        console.log(action);
-        break;
-      case '-':
-        console.log(action);
-        break;
-      case 'X':
-        console.log(action);
-        break;
-      case '/':
-        console.log(action);
-        break;
-      case '.':
-        setActiveValues((prevVals) => {
-          if (prevVals.arithmeticSymbol === false) {
-            if (prevVals.firstNum.includes('.')) {
-              console.log('decimal in place');
-              return {
-                ...prevVals,
-              };
-            }
-            console.log('decimal not in place');
-            return {
-              ...prevVals,
-              firstNum: prevVals.firstNum + '.',
-            };
-          }
-          return { ...prevVals };
-        });
-        console.log(activeValues);
-        break;
-      case '=':
-        console.log(action);
         break;
       case 'Reset':
-        //todo: reset dislpay numbers
-        setActiveValues({
-          firstNum: '',
-          secondNum: '',
-          arithmeticSymbol: false,
-        });
-        console.log(action);
+        resetAllValues()
         break;
+      default:
+        console.log('action switch failed')
+        break;
+    }
+  }
 
+  const arithmeticSwitch = (val) => {
+    switch (val) {
+      case '+':
+        console.log(val)
+        break;
+      case '-':
+        console.log(val)
+        break;
+      case '/':
+        console.log(val)
+        break;
+      case 'X':
+        console.log(val)
+        break;
       default:
         break;
     }
-  };
+  }
+
+  const handleAction = (type, val) => {
+    console.log(`Handle action data: ${type} ${val}`)
+    switch (type) {
+      case 'action':
+        actionSwitch(val)
+        break;
+      case 'arithmetic':
+        arithmeticSwitch(val)
+        break;
+      case 'decimal':
+        // todo: Decimal functionality
+        console.log('decimal function')
+        break;
+      case 'number':
+        console.log(type, val)
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
     <div className='App'>
@@ -120,7 +117,7 @@ function App() {
               key={nanoid()}
               className={`button ${button.classNames}`}
               onClick={(e) => {
-                numberAction(button.value);
+                handleAction(button.type, button.value);
                 console.log(activeValues);
               }}
               value={button.value}>
@@ -134,7 +131,7 @@ function App() {
               key={nanoid()}
               className={`button ${button.classNames}`}
               onClick={(e) => {
-                actionAction(button.value);
+                handleAction(button.type, button.value);
               }}
               value={button.value}>
               {button.value}
@@ -147,3 +144,8 @@ function App() {
 }
 
 export default App;
+
+
+    // setDisplayValue(() => {
+    //   action ? `${num}${action}` : `${num}`;
+    // });

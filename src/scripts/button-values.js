@@ -46,7 +46,7 @@ const buttonValues = [
     for (let i = 0; i <= 9; i++) {
       numbers.push({
         'type': 'number',
-        'value': i,
+        'value': `${i}`,
         "classNames": `num-${i}`
       })
     }
