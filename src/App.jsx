@@ -19,9 +19,8 @@ function App() {
   const [displayValue, setDisplayValue] = useState('0');
   const [activeValues, setActiveValues] = useState({
     num1: [],
-    arithmeticSymbol: null,
+    arithmeticSymbol: false,
     num2: [],
-    storeInNum2: false,
   });
 
   const resetAllValues = () => {
@@ -29,15 +28,14 @@ function App() {
     setActiveValues({
       num1: [],
       num2: [],
-      arithmeticSymbol: null,
-      storeInNum2: false,
+      arithmeticSymbol: false,
     });
   };
 
   const deleteSingleValues = () => {
     console.log('test');
     setActiveValues((prevVal) => {
-      const { num1, num2, arithmeticSymbol, storeInNum2 } = prevVal;
+      const { num1, num2, arithmeticSymbol} = prevVal;
       if (num1.length === 0) return;
       if (num2.length > 1) {
         const newArray = num2;
@@ -52,13 +50,12 @@ function App() {
         return {
           ...prevVal,
           num2: [],
-          storeInNum2: false,
         };
       }
-      if (arithmeticSymbol !== null) {
+      if (arithmeticSymbol !== false) {
         return {
           ...prevVal,
-          arithmeticSymbol: null,
+          arithmeticSymbol: false,
         };
       }
       if (num1.length > 1) {
@@ -123,15 +120,6 @@ function App() {
     });
   };
 
-  const setStoreInNum2 = (bool) => {
-    setActiveValues((prevVal) => {
-      return {
-        ...prevVal,
-        storeInNum2: bool,
-      };
-    });
-  };
-
   // Todo: Set up the full display in the use effect hook
   // update the display box when the active values change
   useEffect(() => {
@@ -145,7 +133,7 @@ function App() {
     // }
     setDisplayValue(`
     ${activeValues.num1.join('')} ${
-      activeValues.arithmeticSymbol !== null
+      activeValues.arithmeticSymbol !== false
         ? activeValues.arithmeticSymbol
         : ''
     } ${activeValues.num2.join('')}
@@ -154,7 +142,7 @@ function App() {
 
   const setDecimal = () => {
     setActiveValues((prevVal) => {
-      if (prevVal.storeInNum2) {
+      if (prevVal.arithmeticSymbol !== false) {
         return {
           ...prevVal,
           num2: prevVal.num2.includes('.') // Checks if num2 has a decimal
@@ -176,7 +164,7 @@ function App() {
   };
 
   const setNumber = (val) => {
-    if (activeValues.storeInNum2) {
+    if (activeValues.arithmeticSymbol !== false) {
       setActiveValues((prevVal) => {
         return {
           ...prevVal,
@@ -199,9 +187,8 @@ function App() {
         actionSwitch(val);
         break;
       case 'arithmetic':
-        if (activeValues.arithmeticSymbol === null) {
+        if (activeValues.arithmeticSymbol === false) {
           setArithmeticSymbol(val);
-          setStoreInNum2(true);
           break;
         }
         // todo: Would this be better as:
