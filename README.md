@@ -42,7 +42,10 @@ Users should be able to:
 ### Current/Continued Development
 
 - Where in the project am I? 
+  Figuring out the calculation portion of the calculator
+
 - What is the next thing being developed?
+  Solving the decimal problem
 
 
 - What would I like to do to improve the project in the future?
