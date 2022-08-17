@@ -16,7 +16,7 @@ import {
 
 function App() {
   const [theme, setTheme] = useState('theme1');
-  const [displayValue, setDisplayValue] = useState('0');
+  const [displayValue, setDisplayValue] = useState('');
   const [activeValues, setActiveValues] = useState({
     num1: [],
     arithmeticSymbol: false,
@@ -27,20 +27,21 @@ function App() {
     setDisplayValue('');
     setActiveValues({
       num1: [],
-      num2: [],
       arithmeticSymbol: false,
+      num2: [],
     });
   };
 
   const deleteSingleValues = () => {
-    console.log('test');
+    if (activeValues.num1.length === 0) {
+      console.log('Nothing to delete')
+      return
+    }
     setActiveValues((prevVal) => {
       const { num1, num2, arithmeticSymbol} = prevVal;
-      if (num1.length === 0) return;
       if (num2.length > 1) {
         const newArray = num2;
         newArray.pop();
-        console.log(newArray);
         return {
           ...prevVal,
           num2: newArray,
@@ -52,7 +53,7 @@ function App() {
           num2: [],
         };
       }
-      if (arithmeticSymbol !== false) {
+      if (arithmeticSymbol) {
         return {
           ...prevVal,
           arithmeticSymbol: false,
@@ -60,7 +61,6 @@ function App() {
       }
       if (num1.length > 1) {
         const newArray = num1;
-        console.log(newArray);
         newArray.pop();
         return {
           ...prevVal,
@@ -92,24 +92,27 @@ function App() {
   };
 
   // todo: Not sure if I need this?
-  // const arithmeticSwitch = (val) => {
-  //   switch (val) {
-  //     case '+':
-  //       console.log(val);
-  //       break;
-  //     case '-':
-  //       console.log(val);
-  //       break;
-  //     case '/':
-  //       console.log(val);
-  //       break;
-  //     case 'X':
-  //       console.log(val);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
+  const arithmeticSwitch = (val) => {
+    const {num1, arithmeticSymbol, num2} = activeValues;
+    const num1Val = parseInt(num1.join(''))
+    const num2Val = parseInt(num2.join(''))
+    switch (val) {
+      case '+':
+        return num1Val + num2Val
+        break;
+      case '-':
+        return num1Val - num2Val
+        break;
+      case '/':
+        return num1Val / num2Val
+        break;
+      case 'X':
+        return num1Val * num2Val
+        break;
+      default:
+        break;
+    }
+  };
 
   const setArithmeticSymbol = (val) => {
     setActiveValues((prevVal) => {
@@ -127,13 +130,9 @@ function App() {
       setDisplayValue('0');
       return;
     }
-    // if (activeValues.storeInNum2 === false) {
-    //   setDisplayValue(activeValues.num1.join(''));
-    //   return;
-    // }
     setDisplayValue(`
     ${activeValues.num1.join('')} ${
-      activeValues.arithmeticSymbol !== false
+      activeValues.arithmeticSymbol 
         ? activeValues.arithmeticSymbol
         : ''
     } ${activeValues.num2.join('')}
@@ -142,7 +141,7 @@ function App() {
 
   const setDecimal = () => {
     setActiveValues((prevVal) => {
-      if (prevVal.arithmeticSymbol !== false) {
+      if (prevVal.arithmeticSymbol) {
         return {
           ...prevVal,
           num2: prevVal.num2.includes('.') // Checks if num2 has a decimal
@@ -164,7 +163,7 @@ function App() {
   };
 
   const setNumber = (val) => {
-    if (activeValues.arithmeticSymbol !== false) {
+    if (activeValues.arithmeticSymbol) {
       setActiveValues((prevVal) => {
         return {
           ...prevVal,
@@ -190,7 +189,7 @@ function App() {
         if (activeValues.arithmeticSymbol === false) {
           setArithmeticSymbol(val);
           break;
-        }
+        } 
         // todo: Would this be better as:
         // Calculate total
         // set active values

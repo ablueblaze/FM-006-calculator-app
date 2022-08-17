@@ -51,24 +51,12 @@ Users should be able to:
 - What would I like to do to improve the project in the future?
 - Potential feature list?
 
+- KISS!!!
 
-## My Process
-
-- General Review of project
-  - Is there anything to note about this project?
-  - What elements of the project do I forsee having trouble with?
-  - What elements do I want to focus on as a way to continue my skill advancement?
-  
-- Kiss:
-  - two numbers max
-  - 
-
--Basic plan
-  - Plan outline:
-    -
-
-  - Primary production order:
-    1. 
+#### Notes
+  Currently there is an issue where the activeValue is being updated twice when the delete key is pressed. 
+    This doesn't happen when I take the app out of StrictMode.
+    Still researching the problem.
 
 ### Built With
 
