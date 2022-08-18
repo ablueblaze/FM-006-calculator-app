@@ -1,15 +1,32 @@
 :root {
   --ff-primary: ;
   --ff-secondary: ;
+  
 
   --fw-reg: ;
   --fw-bold: ;
 
-  --grid-square: 6em;
+  --grid-square: 1fr;
 
   --clr-dark: #303030;
   --clr-light: #fff;
   --clr-accent: ;
+  --clr-main-background: hsl(222, 26%, 31%);
+  --clr-keypad-background: hsl(223, 31%, 20%);
+  --clr-display-background: hsl(224, 36%, 15%);
+
+  --clr-key-background-dark: hsl(225, 21%, 49%);
+  --clr-key--shadow-dark: hsl(224, 28%, 35%);
+
+  --clr-key-background-light: hsl(30, 25%, 89%);
+  --clr-key--shadow-light: hsl(28, 16%, 65%);
+
+  --clr-key-background-red: hsl(6, 63%, 50%);
+  --clr-key--shadow-red: hsl(6, 70%, 34%);
+
+
+  --clr-key-text-light: hsl(0, 0%, 100%);
+  --clr-key-text-dark: hsl(221, 14%, 31%);
 }
 
 * {
@@ -19,11 +36,17 @@
 }
 
 body {
-  background-color: teal;
+  background-color: var(--clr-main-background);
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 3em;
+}
+
+.App {
+  min-width: 350px;
+  width: 80vw;
+  max-width: 550px;
 }
 
 /*  
@@ -31,6 +54,59 @@ body {
 Separator Template
 ############
 */
+
+/*  
+############
+Header
+############
+*/
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+
+/*  
+############
+Theme selector
+############
+*/
+
+.theme-selector--container {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-switch-container {
+  margin-left: 1.5em;
+}
+
+/*  
+############
+Display
+############
+*/
+
+.display {
+  width: 100%;
+  height: 1.5em;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  background-color: aliceblue;
+  font-size: 32px;
+  text-align: center;
+  padding: .3em;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 1.2em;
+  margin-bottom: 1em;
+  border-radius: 10px;
+}
 
 
 /*  
@@ -40,6 +116,11 @@ Buttons
 */
 
 .button-field {
+  background-color: var(--clr-keypad-background); 
+  padding: 2em;
+  height: 60vh;
+  min-height: 400px;
+  border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(4, var(--grid-square));
   grid-template-rows: repeat(5, var(--grid-square));
@@ -50,6 +131,7 @@ Buttons
   "decimal n0 divide multiply"
   "reset reset equal equal"
   ;
+  grid-gap: 10px;
 }
 
 .num-1 {grid-area: n1}
@@ -73,22 +155,23 @@ Buttons
 .equal {grid-area: equal;}
 
 .button {
+  background-color: var(--clr-key-background-light);
   font-size: 32px;
-  padding: 5px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 5px 2px var(--clr-key--shadow-light);
+  color: var(--clr-key-text-dark);
 }
 
+.delete,
+.reset {
+  background-color: var(--clr-key-background-dark);
+  box-shadow: 0 5px 2px var(--clr-key--shadow-dark);
+  color: var(--clr-key-text-light);
+}
 
-
-.display {
-  width: 10em;
-  height: 1.5em;
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  background-color: aliceblue;
-  font-size: 32px;
-  text-align: center;
-  padding: .3em;
-  overflow: hidden;
-  white-space: nowrap;
+.equal {
+  background-color: var(--clr-key-background-red);
+  box-shadow: 0 5px 2px var(--clr-key--shadow-red);
+  color: var(--clr-key-text-light);
 }
