@@ -8,9 +8,6 @@
 
   --grid-square: 1fr;
 
-  --clr-dark: #303030;
-  --clr-light: #fff;
-  --clr-accent: ;
   --clr-main-background: hsl(222, 26%, 31%);
   --clr-keypad-background: hsl(223, 31%, 20%);
   --clr-display-background: hsl(224, 36%, 15%);
@@ -21,8 +18,8 @@
   --clr-key-background-light: hsl(30, 25%, 89%);
   --clr-key--shadow-light: hsl(28, 16%, 65%);
 
-  --clr-key-background-red: hsl(6, 63%, 50%);
-  --clr-key--shadow-red: hsl(6, 70%, 34%);
+  --clr-key-background-equal: hsl(6, 63%, 50%);
+  --clr-key--shadow-equal: hsl(6, 70%, 34%);
 
 
   --clr-key-text-light: hsl(0, 0%, 100%);
@@ -92,6 +89,7 @@ Display
 */
 
 .display {
+  background-color: var(--clr-display-background);
   width: 100%;
   height: 1.5em;
   display: flex;
@@ -171,7 +169,7 @@ Buttons
 }
 
 .equal {
-  background-color: var(--clr-key-background-red);
-  box-shadow: 0 5px 2px var(--clr-key--shadow-red);
+  background-color: var(--clr-key-background-equal);
+  box-shadow: 0 5px 2px var(--clr-key--shadow-equal);
   color: var(--clr-key-text-light);
 }
