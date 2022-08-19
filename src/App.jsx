@@ -10,12 +10,7 @@ import themes from './scripts/themes';
 function App() {
   const [theme, setTheme] = useState('theme1')
   
-  // useEffect(() => {
-  //   for (let i of themes[theme]) {
-  //     document.documentElement.style.setProperty(`${i.property}`, `${i.value}`);
-  //   }
-  // }, [theme])
-
+  // Sets the :root properties of the site when theme is changed
   useEffect(() => {
     for (let i of themes) {
       document.documentElement.style.setProperty(`${i.property}`, `${i[theme]}`);
@@ -25,15 +20,14 @@ function App() {
   const themeEvent = (newTheme) => {
     setTheme(newTheme)
   }
-
   
   return (
-    <div className={'App ' + theme}>
+    <div className={'App '}>
       <header>
         <h1>Calc</h1>
         <ThemeSelector handleEvent={themeEvent} currentTheme={theme} />
       </header>
-      <Display theme={'theme1'} displayValue={'display-value'} />
+      <Display  displayValue={'display-value'} />
       <div className='button-field'>
         {allButtons.map((button) => {
           return (
