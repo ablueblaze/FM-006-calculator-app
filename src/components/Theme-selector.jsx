@@ -3,48 +3,46 @@ import React from 'react';
 export default function ThemeSelector(props) {
   const isChecked = (value) => {
     if (value === props.currentTheme) {
-      return true
+      return true;
     }
-    return 
-  } 
+    return;
+  };
+
+  const themeValue = () => {
+    const { currentTheme } = props;
+    switch (currentTheme) {
+      case 'theme1':
+        return 1;
+      case 'theme2':
+        return 2;
+      case 'theme3':
+        return 3;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className='theme-selector--container'>
       <h3>Theme:</h3>
       <div className='toggle-switch-container'>
-        <div className='theme-number-labels'>
-          <label htmlFor='toggle1'>1</label>
-          <label htmlFor='toggle2'>2</label>
-          <label htmlFor='toggle3'>3</label>
+        <div className='theme-number-container'>
+          <p className='theme-number'>1</p>
+          <p className='theme-number'>2</p>
+          <p className='theme-number'>3</p>
         </div>
-        <div className='theme-toggle'>
-          <input
-            onChange={() => {
-              props.handleEvent('theme1');
-            }}
-            type='radio'
-            name='theme-toggle'
-            id='toggle1'
-            checked={props.currentTheme === 'theme1'}
-          />
-          <input
-            onChange={() => {
-              props.handleEvent('theme2');
-            }}
-            type='radio'
-            name='theme-toggle'
-            id='toggle2'
-            checked={props.currentTheme === 'theme2'}
-          />
-          <input
-            onChange={() => {
-              props.handleEvent('theme3');
-            }}
-            type='radio'
-            name='theme-toggle'
-            id='toggle3'
-            checked={props.currentTheme === 'theme3'}
-          />
-        </div>
+        <input
+          className='theme-slider'
+          type='range'
+          name='theme-toggle'
+          id='theme-selector'
+          min={1}
+          max={3}
+          onChange={(e) => {
+            props.handleThemeChange(e);
+          }}
+          defaultValue={themeValue()}
+        />
       </div>
     </div>
   );

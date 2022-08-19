@@ -8,26 +8,48 @@ import allButtons from './scripts/button-values';
 import themes from './scripts/themes';
 
 function App() {
-  const [theme, setTheme] = useState('theme1')
-  
+  const [theme, setTheme] = useState('theme1');
+
   // Sets the :root properties of the site when theme is changed
   useEffect(() => {
     for (let i of themes) {
-      document.documentElement.style.setProperty(`${i.property}`, `${i[theme]}`);
+      document.documentElement.style.setProperty(
+        `${i.property}`,
+        `${i[theme]}`
+      );
     }
-  }, [theme])
+  }, [theme]);
 
-  const themeEvent = (newTheme) => {
-    setTheme(newTheme)
-  }
-  
+  const themeChangeEvent = (e) => {
+    switch (e.target.value) {
+      case '1':
+        setTheme('theme1');
+        break;
+      case '2':
+        setTheme('theme2');
+        break;
+      case '3':
+        setTheme('theme3');
+        break;
+      default:
+        break;
+    }
+  };
+
+  const buttonEvent = (keyValue) => {
+    console.log(keyValue);
+  };
+
   return (
     <div className={'App '}>
       <header>
         <h1>Calc</h1>
-        <ThemeSelector handleEvent={themeEvent} currentTheme={theme} />
+        <ThemeSelector
+          handleThemeChange={themeChangeEvent}
+          currentTheme={theme}
+        />
       </header>
-      <Display  displayValue={'display-value'} />
+      <Display displayValue={'display-value'} />
       <div className='button-field'>
         {allButtons.map((button) => {
           return (
@@ -36,6 +58,7 @@ function App() {
               type={button.type}
               value={button.value}
               classNames={button.classNames}
+              eventHandler={buttonEvent}
             />
           );
         })}

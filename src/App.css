@@ -1,7 +1,6 @@
 :root {
   --ff-primary: ;
   --ff-secondary: ;
-  
 
   --fw-reg: ;
   --fw-bold: ;
@@ -21,9 +20,9 @@
   --clr-key-background-equal: hsl(6, 63%, 50%);
   --clr-key--shadow-equal: hsl(6, 70%, 34%);
 
-
   --clr-key-text-light: hsl(0, 0%, 100%);
   --clr-key-text-dark: hsl(221, 14%, 31%);
+  --clr-key-text-button: hsl(0, 0%, 100%);
 }
 
 * {
@@ -67,7 +66,6 @@ header {
   margin-bottom: 1em;
 }
 
-
 /*  
 ############
 Theme selector
@@ -82,6 +80,114 @@ Theme selector
 .toggle-switch-container {
   /* background-color: var(--clr-keypad-background); */
   margin-left: 1.5em;
+  width: 65px;
+}
+
+.theme-number-container {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+/*  
+############
+Slider
+############
+*/
+
+.theme-slider {
+  width: 100%;
+  background-color: var(--clr-main-background);
+}
+
+input[type='range'] {
+  height: 26px;
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+}
+input[type='range']:focus {
+  outline: none;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 22px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: var(--clr-keypad-background);
+  border-radius: 19px;
+  border: 0px solid #000000;
+}
+input[type='range']::-webkit-slider-thumb {
+  box-shadow: 1px 1px 0px #000000;
+  border: 1px solid #000000;
+  height: 18px;
+  width: 18px;
+  border-radius: 15px;
+  background: var(--clr-key-background-equal);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: 1.5px;
+}
+input[type='range']:focus::-webkit-slider-runnable-track {
+  background: var(--clr-keypad-background);
+}
+input[type='range']::-moz-range-track {
+  width: 100%;
+  height: 22px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: var(--clr-keypad-background);
+  border-radius: 19px;
+  border: 0px solid #000000;
+}
+input[type='range']::-moz-range-thumb {
+  box-shadow: 1px 1px 0px #000000;
+  border: 1px solid #000000;
+  height: 18px;
+  width: 18px;
+  border-radius: 15px;
+  background: var(--clr-key-background-equal);
+  cursor: pointer;
+}
+input[type='range']::-ms-track {
+  width: 100%;
+  height: 22px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type='range']::-ms-fill-lower {
+  background: var(--clr-keypad-background);
+  border: 0px solid #000000;
+  border-radius: 38px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type='range']::-ms-fill-upper {
+  background: var(--clr-keypad-background);
+  border: 0px solid #000000;
+  border-radius: 38px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type='range']::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 1px 1px 0px #000000;
+  border: 1px solid #000000;
+  height: 18px;
+  width: 18px;
+  border-radius: 15px;
+  background: var(--clr-key-background-equal);
+  cursor: pointer;
+}
+input[type='range']:focus::-ms-fill-lower {
+  background: var(--clr-keypad-background);
+}
+input[type='range']:focus::-ms-fill-upper {
+  background: var(--clr-keypad-background);
 }
 
 /*  
@@ -110,7 +216,6 @@ Display
   text-align: center;
 }
 
-
 /*  
 ############
 Buttons
@@ -121,16 +226,15 @@ Buttons
   display: grid;
   grid-template-columns: repeat(4, var(--grid-square));
   grid-template-rows: repeat(5, var(--grid-square));
-  grid-template-areas: 
-  "n7 n8 n9 delete"
-  "n4 n5 n6 add"
-  "n1 n2 n3 subtract"
-  "decimal n0 divide multiply"
-  "reset reset equal equal"
-  ;
+  grid-template-areas:
+    'n7 n8 n9 delete'
+    'n4 n5 n6 add'
+    'n1 n2 n3 subtract'
+    'decimal n0 divide multiply'
+    'reset reset equal equal';
   grid-gap: 10px;
 
-  background-color: var(--clr-keypad-background); 
+  background-color: var(--clr-keypad-background);
 
   padding: 2em;
   height: 60vh;
@@ -138,29 +242,65 @@ Buttons
   border-radius: 10px;
 }
 
-.num-1 {grid-area: n1}
-.num-2 {grid-area: n2}
-.num-3 {grid-area: n3}
-.num-4 {grid-area: n4}
-.num-5 {grid-area: n5}
-.num-6 {grid-area: n6}
-.num-7 {grid-area: n7}
-.num-8 {grid-area: n8}
-.num-9 {grid-area: n9}
-.num-0 {grid-area: n0}
+.num-1 {
+  grid-area: n1;
+}
+.num-2 {
+  grid-area: n2;
+}
+.num-3 {
+  grid-area: n3;
+}
+.num-4 {
+  grid-area: n4;
+}
+.num-5 {
+  grid-area: n5;
+}
+.num-6 {
+  grid-area: n6;
+}
+.num-7 {
+  grid-area: n7;
+}
+.num-8 {
+  grid-area: n8;
+}
+.num-9 {
+  grid-area: n9;
+}
+.num-0 {
+  grid-area: n0;
+}
 
-.delete {grid-area: delete;}
-.add {grid-area: add;}
-.subtract {grid-area: subtract;}
-.multiply {grid-area: multiply;}
-.divide {grid-area: divide;}
-.decimal {grid-area: decimal;}
-.reset {grid-area: reset;}
-.equal {grid-area: equal;}
+.delete {
+  grid-area: delete;
+}
+.add {
+  grid-area: add;
+}
+.subtract {
+  grid-area: subtract;
+}
+.multiply {
+  grid-area: multiply;
+}
+.divide {
+  grid-area: divide;
+}
+.decimal {
+  grid-area: decimal;
+}
+.reset {
+  grid-area: reset;
+}
+.equal {
+  grid-area: equal;
+}
 
 .button {
   background-color: var(--clr-key-background-light);
-  color: var(--clr-key-text-dark);
+  color: var(--clr-key-text-button);
   font-size: 32px;
   border-radius: 10px;
   border: none;
@@ -178,4 +318,8 @@ Buttons
   background-color: var(--clr-key-background-equal);
   color: var(--clr-key-text-light);
   box-shadow: 0 5px 2px var(--clr-key--shadow-equal);
+}
+
+.button:hover {
+  filter: brightness(150%);
 }

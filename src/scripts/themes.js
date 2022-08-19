@@ -30,32 +30,39 @@ const themes = [
     theme3: 'hsl(285, 91%, 52%)',
   },
   {
+    // Change
     property: '--clr-key-background-light',
     theme1: 'hsl(30, 25%, 89%)',
-    theme2: 'hsl(25, 98%, 40%)',
-    theme3: 'hsl(176, 100%, 44%)',
-  },
-  {
-    property: '--clr-key--shadow-light',
-    theme1: 'hsl(28, 16%, 65%)',
-    theme2: 'hsl(25, 99%, 27%)',
-    theme3: 'hsl(177, 92%, 70%)',
-  },
-  {
-    property: '--clr-key-background-equal',
-    theme1: 'hsl(6, 63%, 50%)',
     theme2: 'hsl(45, 7%, 89%)',
     theme3: 'hsl(268, 47%, 21%)',
   },
   {
-    property: '--clr-key--shadow-equal',
-    theme1: 'hsl(6, 70%, 34%)',
+    property: '--clr-key--shadow-light',
+    theme1: 'hsl(28, 16%, 65%)',
     theme2: 'hsl(35, 11%, 61%)',
     theme3: 'hsl(290, 70%, 36%)',
   },
   {
+    property: '--clr-key-background-equal',
+    theme1: 'hsl(6, 63%, 50%)',
+    theme2: 'hsl(25, 98%, 40%)',
+    theme3: 'hsl(176, 100%, 44%)',
+  },
+  {
+    property: '--clr-key--shadow-equal',
+    theme1: 'hsl(6, 70%, 34%)',
+    theme2: 'hsl(25, 99%, 27%)',
+    theme3: 'hsl(177, 92%, 70%)',
+  },
+  {
     property: '--clr-key-text-light',
     theme1: 'hsl(0, 0%, 100%)',
+    theme2: 'hsl(60, 10%, 19%)',
+    theme3: 'hsl(52, 100%, 62%)',
+  },
+  {
+    property: '--clr-key-text-button',
+    theme1: 'hsl(221, 14%, 31%)',
     theme2: 'hsl(60, 10%, 19%)',
     theme3: 'hsl(52, 100%, 62%)',
   },
