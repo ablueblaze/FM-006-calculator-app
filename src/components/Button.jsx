@@ -6,7 +6,7 @@ export default function Button(props) {
     <button
       className={classNames + ' button'}
       onClick={() => {
-        eventHandler(value);
+        eventHandler(value, type);
       }}>
       {value}
     </button>

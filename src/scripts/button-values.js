@@ -5,27 +5,27 @@ const buttonValues = [
     classNames: 'delete',
   },
   {
-    type: 'arithmetic',
+    type: 'symbol',
     value: '+',
     classNames: 'plus',
   },
   {
-    type: 'arithmetic',
+    type: 'symbol',
     value: '-',
     classNames: 'minus',
   },
   {
-    type: 'decimal',
+    type: 'symbol',
     value: '.',
     classNames: 'decimal',
   },
   {
-    type: 'arithmetic',
+    type: 'symbol',
     value: '/',
     classNames: 'divide',
   },
   {
-    type: 'arithmetic',
+    type: 'symbol',
     value: 'X',
     classNames: 'multiply',
   },
@@ -35,7 +35,7 @@ const buttonValues = [
     classNames: 'reset',
   },
   {
-    type: 'arithmetic',
+    type: 'action',
     value: '=',
     classNames: 'equal',
   },
@@ -53,7 +53,7 @@ const numberBtnCreator = () => {
   return numbers;
 };
 
-const numberBtns = numberBtnCreator()
+const numberBtns = numberBtnCreator();
 const allButtons = [...numberBtns, ...buttonValues];
 
-export default allButtons
+export default allButtons;
