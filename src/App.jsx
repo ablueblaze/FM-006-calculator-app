@@ -4,8 +4,8 @@ import './App.css';
 import Button from './components/Button';
 import Display from './components/Display';
 import ThemeSelector from './components/Theme-selector';
-import allButtons from './scripts/button-values';
 import themes from './scripts/themes';
+import allButtons from './scripts/button-values';
 
 function App() {
   const [theme, setTheme] = useState('theme1');
@@ -33,72 +33,178 @@ function App() {
         setTheme('theme3');
         break;
       default:
+        console.log('Theme switch failed.');
         break;
     }
   };
 
-  // determine and execute the appropriate action
+  // determine and execute the appropriate action upon action button event
   const actionSwitch = (keyValue) => {
-    console.log('action switch fired');
     switch (keyValue) {
+      // Remove the last index of the display value
       case 'del':
         setDisplayValue((prevDisplay) => {
           if (prevDisplay === '0' || prevDisplay.length === 1) {
             return '0';
           }
-          return prevDisplay.slice(0, prevDisplay.length - 1);
+          return prevDisplay.slice(0, -1);
         });
         break;
+
+      // Clear all values back to default
       case 'Reset':
+        setDisplayValue('0');
         break;
+
+      // Calculate the total of given equation
       case '=':
         break;
+
       default:
+        console.log('Action switch failed.');
         break;
     }
   };
 
+  const okayToPlaceDecimal = () => {
+    // Splits and reverses the display value
+    const testArray = displayValue.split('').reverse();
+
+    // Checks to see if there is a decimal in the array
+    // returns it's index
+    const firstDecimalIndex = testArray.findIndex((element) => element === '.');
+
+    // Checks to see if there is a symbol other than decimal in the array
+    // returns it's index
+    const firstSymbolIndex = testArray.findIndex((element) => {
+      if (element === '+') {
+        return element === '+';
+      }
+      if (element === '-') {
+        return element === '-';
+      }
+      if (element === 'X') {
+        return element === 'X';
+      }
+      if (element === '/') {
+        return element === '/';
+      }
+    });
+
+    if (firstSymbolIndex === -1 || firstDecimalIndex === -1) {
+      return true;
+    }
+
+    // compares the two indexes to see if the decimal shows up before the symbol
+    if (firstDecimalIndex > firstSymbolIndex) {
+      // if true, can place an index
+      return true;
+    }
+    // if false, can't place index
+    return false;
+  };
+
+  //! Working Area \\
+
+  const calc = () => {
+    // original idea for this function from:
+    // https://codepen.io/lalwanivikas/pen/eZxjqo?editors=1010
+
+    // forming an array of numbers.
+    const numbers = displayValue.split(/\/|\+|\-|X/gm);
+    const operatorsRaw = displayValue.split(/[0-9]+/);
+    const operators = operatorsRaw.filter((ele) => ele !== '' && ele !== '.');
+
+    // forming an array of operators.
+    // first we replace all the numbers and dot with empty string and then split
+
+    console.log('operators:');
+    console.log(operators);
+    console.log('numbers:');
+    console.log(numbers);
+    console.log('----------------------------');
+
+    // now we are looping through the array and doing one operation at a time.
+    // first divide, then multiply, then subtraction and then addition
+    // as we move we are alterning the original numbers and operators array
+    // the final element remaining in the array will be the output
+
+    let divide = operators.indexOf('/');
+    while (divide !== -1) {
+      numbers.splice(divide, 2, numbers[divide] / numbers[divide + 1]);
+      operators.splice(divide, 1);
+      divide = operators.indexOf('/');
+    }
+
+    let multiply = operators.indexOf('X');
+    while (multiply !== -1) {
+      numbers.splice(multiply, 2, numbers[multiply] * numbers[multiply + 1]);
+      operators.splice(multiply, 1);
+      multiply = operators.indexOf('X');
+    }
+
+    let subtract = operators.indexOf('-');
+    while (subtract !== -1) {
+      numbers.splice(subtract, 2, numbers[subtract] - numbers[subtract + 1]);
+      operators.splice(subtract, 1);
+      subtract = operators.indexOf('-');
+    }
+
+    let add = operators.indexOf('+');
+    while (add !== -1) {
+      // using parseFloat is necessary, otherwise it will result in string concatenation :)
+      numbers.splice(
+        add,
+        2,
+        parseFloat(numbers[add]) + parseFloat(numbers[add + 1])
+      );
+      operators.splice(add, 1);
+      add = operators.indexOf('+');
+    }
+    console.log('Current Value:');
+    console.log(numbers);
+  };
+
+  // console.log(operators);
+  // console.log(numbers);
+
+  calc();
+
+  //! Working Area \\
+
   const symbolHandler = (keyValue) => {
-    console.log('symbol switch fired');
     // displayValue minus last element
     const shortValue = displayValue.slice(0, -1);
-    const lastElement = displayValue.slice(-1);
-    console.log(`last element: ${lastElement}|| shortValue: ${shortValue}`);
+    // last character of the display value
+    const lastCharacter = displayValue.slice(-1);
 
-    // if the last element and the key are the same
-    if (lastElement === keyValue) {
-      console.log('option 1');
+    // Check if decimal is okay to place
+    if (keyValue === '.') {
+      if (okayToPlaceDecimal() === false) return;
+    }
+
+    if (lastCharacter === keyValue) {
+      // if the last element and the keyValue are the same
       return;
+    } else if (parseInt(lastCharacter)) {
       // if the last element is a number
-    } else if (parseInt(lastElement)) {
-      console.log('option 2');
+      setDisplayValue((prevDisplay) => {
+        return prevDisplay + keyValue;
+      });
+    } else if (lastCharacter === '0' && keyValue === '.') {
+      // if the last element is a 0 and keyValue is a decimal
+      // todo: why is this needed?
       setDisplayValue((prevDisplay) => {
         return prevDisplay + keyValue;
       });
     } else {
+      // if the last element is a symbol, replace it with the new symbol
       setDisplayValue(shortValue + keyValue);
     }
-    // if (lastElement === NaN && lastElement !== '.') {
-    //   console.log('option 2');
-    //   setDisplayValue(shortValue + keyValue);
-    //   return;
-    // }
-    // if (lastElement !== NaN && keyValue !== '.') {
-    //   console.log('option 3');
-    //   setDisplayValue((prevDisplay) => {
-    //     return prevDisplay + keyValue;
-    //   });
-    // }
-    // if (keyValue === '.') {
-    //   console.log('option 4');
-    //   setDisplayValue((prevDisplay) => {
-    //     return prevDisplay + '0.';
-    //   });
-    // }
+    console.log('Symbol handler failed.');
   };
 
   const buttonEvent = (keyValue, type) => {
-    // last element of the current displayValue
     console.log(`keyValue: ${keyValue} || type: ${type}`);
     console.log('-----');
     switch (type) {
@@ -116,6 +222,7 @@ function App() {
           return prevDisplay + keyValue;
         });
       default:
+        console.log('Button event failed.');
         break;
     }
   };
