@@ -38,34 +38,6 @@ function App() {
     }
   };
 
-  // determine and execute the appropriate action upon action button event
-  const actionSwitch = (keyValue) => {
-    switch (keyValue) {
-      // Remove the last index of the display value
-      case 'del':
-        setDisplayValue((prevDisplay) => {
-          if (prevDisplay === '0' || prevDisplay.length === 1) {
-            return '0';
-          }
-          return prevDisplay.slice(0, -1);
-        });
-        break;
-
-      // Clear all values back to default
-      case 'Reset':
-        setDisplayValue('0');
-        break;
-
-      // Calculate the total of given equation
-      case '=':
-        break;
-
-      default:
-        console.log('Action switch failed.');
-        break;
-    }
-  };
-
   const okayToPlaceDecimal = () => {
     // Splits and reverses the display value
     const testArray = displayValue.split('').reverse();
@@ -73,6 +45,7 @@ function App() {
     // Checks to see if there is a decimal in the array
     // returns it's index
     const firstDecimalIndex = testArray.findIndex((element) => element === '.');
+    console.log(firstDecimalIndex);
 
     // Checks to see if there is a symbol other than decimal in the array
     // returns it's index
@@ -94,12 +67,13 @@ function App() {
     if (firstSymbolIndex === -1 || firstDecimalIndex === -1) {
       return true;
     }
-
     // compares the two indexes to see if the decimal shows up before the symbol
     if (firstDecimalIndex > firstSymbolIndex) {
       // if true, can place an index
       return true;
     }
+
+    if (firstDecimalIndex !== -1) return true;
     // if false, can't place index
     return false;
   };
@@ -112,21 +86,14 @@ function App() {
 
     // forming an array of numbers.
     const numbers = displayValue.split(/\/|\+|\-|X/gm);
+
+    // forming an array of operators.
     const operatorsRaw = displayValue.split(/[0-9]+/);
     const operators = operatorsRaw.filter((ele) => ele !== '' && ele !== '.');
 
-    // forming an array of operators.
-    // first we replace all the numbers and dot with empty string and then split
-
-    console.log('operators:');
-    console.log(operators);
-    console.log('numbers:');
-    console.log(numbers);
-    console.log('----------------------------');
-
     // now we are looping through the array and doing one operation at a time.
     // first divide, then multiply, then subtraction and then addition
-    // as we move we are alterning the original numbers and operators array
+    // as we move we are alternating the original numbers and operators array
     // the final element remaining in the array will be the output
 
     let divide = operators.indexOf('/');
@@ -161,16 +128,42 @@ function App() {
       operators.splice(add, 1);
       add = operators.indexOf('+');
     }
-    console.log('Current Value:');
-    console.log(numbers);
+    return numbers;
   };
 
-  // console.log(operators);
-  // console.log(numbers);
+  // determine and execute the appropriate action upon action button event
+  const actionSwitch = (keyValue) => {
+    switch (keyValue) {
+      // Remove the last index of the display value
+      case 'del':
+        setDisplayValue((prevDisplay) => {
+          if (prevDisplay === '0' || prevDisplay.length === 1) {
+            return '0';
+          }
+          return prevDisplay.slice(0, -1);
+        });
+        break;
 
-  calc();
+      // Clear all values back to default
+      case 'Reset':
+        setDisplayValue('0');
+        break;
 
-  //! Working Area \\
+      // Calculate the total of given equation
+      case '=':
+        setDisplayValue((prevDisplay) => {
+          const newValue = parseFloat(calc()).toFixed(2).replace(/0+$/, '');
+          if (newValue.slice(-1) === '.') {
+            return newValue.slice(0, -1);
+          }
+          return newValue;
+        });
+        break;
+      default:
+        console.log('Action switch failed.');
+        break;
+    }
+  };
 
   const symbolHandler = (keyValue) => {
     // displayValue minus last element
@@ -205,6 +198,7 @@ function App() {
   };
 
   const buttonEvent = (keyValue, type) => {
+    console.log(`displayValue type: ${typeof displayValue}`);
     console.log(`keyValue: ${keyValue} || type: ${type}`);
     console.log('-----');
     switch (type) {
@@ -221,6 +215,7 @@ function App() {
           }
           return prevDisplay + keyValue;
         });
+        break;
       default:
         console.log('Button event failed.');
         break;
