@@ -78,8 +78,6 @@ function App() {
     return false;
   };
 
-  //! Working Area \\
-
   const calc = () => {
     // original idea for this function from:
     // https://codepen.io/lalwanivikas/pen/eZxjqo?editors=1010
