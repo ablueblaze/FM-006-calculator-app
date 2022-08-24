@@ -126,7 +126,7 @@ function App() {
       operators.splice(add, 1);
       add = operators.indexOf('+');
     }
-    return numbers;
+    return numbers.toString();
   };
 
   // determine and execute the appropriate action upon action button event
