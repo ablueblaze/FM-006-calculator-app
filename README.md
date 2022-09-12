@@ -1,11 +1,10 @@
-# Calculator app solution - Frontend Mentor 
+# Calculator app solution - Frontend Mentor
 
-This is a solution to the [Calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/calculator-app-9lteq5N29). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
-
+This is a solution to the [Calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/calculator-app-9lteq5N29). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents:
 
-- [Overview](#overview) 
+- [Overview](#overview)
   - [The Challenge](#the-challenge)
   - [Project Outline](#project-outline)
   - [Links](#links)
@@ -14,7 +13,6 @@ This is a solution to the [Calculator app challenge on Frontend Mentor](https://
   - [Built With](#built-with)
   - [What I Learned](#what-i-learned)
 - [Author](#author)
-
 
 ## Overview
 
@@ -29,44 +27,32 @@ Users should be able to:
 
 ### Project Outline
 
-  This will cover the project in it's entirety. What are the goals?
-  Anything you are focusing on for this project?
-  Things you want to learn, or get a better handle on?
+My plan for this project was to build the visuals first, then work on the functionality of the calculator. Focusing on the design (Which I was working from a design file) helped make the project seem more manageable, primarily because I was able to see the progress early on.
 
 ### Links
 
 [Project Demo](Demo.Url)
 
-[Github Repo](github.repo)
+[Github Repo](https://github.com/ablueblaze/FM-006-calculator-app)
 
 ### Current/Continued Development
 
-- Where in the project am I? 
-  Figuring out the calculation portion of the calculator
-
-- What is the next thing being developed?
-  Solving the decimal problem
-
-
 - What would I like to do to improve the project in the future?
+  I would like to implement a Scientific calculator setting. The design and functionality of that would be a great challenge.
+
 - Potential feature list?
-
-- KISS!!!
-
-#### Notes
-  Currently there is an issue where the activeValue is being updated twice when the delete key is pressed. 
-    This doesn't happen when I take the app out of StrictMode.
-    Still researching the problem.
+  Custom color theme picker
+  Scientific calculator
 
 ### Built With
 
-- Included technologies:
-
+React
+Vite
+HTML, CSS, JS
 
 ### What I Learned
 
-- TBA
-
+There are pros and cons to doing the visuals first, and that decided which to do first is an important decision in the planing process.
 
 ## Author
 
